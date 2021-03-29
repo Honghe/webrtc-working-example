@@ -1,3 +1,5 @@
+import ssl
+
 from aiohttp import web
 import socketio
 
@@ -28,4 +30,8 @@ async def data(sid, data):
 
 
 if __name__ == '__main__':
-    web.run_app(app, port=9999)
+    # To generate a certificate use:
+    # openssl req -newkey rsa:4096 -nodes -keyout key.pem -x509 -days 365 -out cert.pem
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    context.load_cert_chain('cert.pem', 'key.pem')
+    web.run_app(app, port=9999, ssl_context=context)
