@@ -1,0 +1,4 @@
+.idea/
+__pycache__/
+*.pem
+app-config.js
